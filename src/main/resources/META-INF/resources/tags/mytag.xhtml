@@ -7,6 +7,6 @@
 	xmlns:p="http://primefaces.org/ui"
         xmlns:ui="jakarta.faces.facelets">
     <p:panelGrid columns="1" layout="grid" id="panel">
-        <h:outputText id="outputTextTagId" value="#{text}" />
+        <h:outputText id="outputTextTagId" value="Hello user #{userMBean.username}" />
     </p:panelGrid>
 </ui:composition>

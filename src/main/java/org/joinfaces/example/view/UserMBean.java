@@ -14,30 +14,38 @@
  * limitations under the License.
  */
 
-package org.joinfaces.example;
+package org.joinfaces.example.view;
 
-import java.util.List;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.faces.view.ViewScoped;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 /**
- * User Credentials.
+ * Welcome Page.
  *
  * @author Marcelo Fernandes
  */
-@Getter
 @Setter
-public class UserCredentials {
+@Getter
+@Component
+@ViewScoped
+public class UserMBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String username;
 
-	private String password;
+	public String getUsername() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-	@SuppressFBWarnings("EI_EXPOSE_REP")
-	private List<String> authorities;
+		User currentUser = (User) authentication.getPrincipal();
 
+		return currentUser.getUsername();
+	}
 }
